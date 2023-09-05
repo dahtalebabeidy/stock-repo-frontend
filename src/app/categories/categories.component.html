@@ -1,0 +1,51 @@
+<div>
+  <h2>Liste des Catégories</h2>
+  <table>
+    <tr>
+      <th>Code</th>
+      <th>Libellé</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let categorie of categories">
+      <td>{{ categorie.code }}</td>
+      <td>{{ categorie.libelle }}</td>
+      <td>
+        <button (click)="editCategorie(categorie)">Modifier</button>
+        <button (click)="deleteCategorie(categorie.id)">Supprimer</button>
+      </td>
+    </tr>
+    <tr>
+      <button class="add" (click)="toggleAddFields()">Ajouter Une Categorie</button>
+    </tr>
+  </table>
+
+  <div *ngIf="selectedCategorie.id">
+    <h3>Modifier la Catégorie</h3>
+    <form (ngSubmit)="updateCategorie()">
+      <label for="code">Code:</label>
+      <input type="text" id="code" [(ngModel)]="selectedCategorie.code" name="code">
+      <br>
+      <label for="libelle">Libellé:</label>
+      <input type="text" id="libelle" [(ngModel)]="selectedCategorie.libelle" name="libelle">
+      <br>
+      <div class="error-message" *ngIf="!selectedCategorie.code || !selectedCategorie.libelle">Touts les champs sont obiligatoire.</div>
+      <br>
+      <button [disabled]="!selectedCategorie.code || !selectedCategorie.libelle">Enregistrer</button>
+    </form>
+  </div>
+
+  <div *ngIf="showAddFields">
+    <h3>Ajouter une Catégorie</h3>
+    <form (ngSubmit)="addNewCategorie()">
+      <label for="newCode">Code:</label>
+      <input type="text" id="newCode" [(ngModel)]="selectedCategorie.code" name="newCode">
+      <br>
+      <label for="newLibelle">Libellé:</label>
+      <input type="text" id="newLibelle" [(ngModel)]="selectedCategorie.libelle" name="newLibelle">
+      <br>
+      <div class="error-message" *ngIf="!selectedCategorie.code || !selectedCategorie.libelle">Touts les champs sont obiligatoire.</div>
+      <br>
+      <button [disabled]="!selectedCategorie.code || !selectedCategorie.libelle">Ajouter</button>
+    </form>
+  </div>
+</div>

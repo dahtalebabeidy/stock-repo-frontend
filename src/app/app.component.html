@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion de Stock</title>
+  <link href="https://cdn.jsdelivr.net/npm/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">
+</head>
+<body>
+  <mat-toolbar color="primary">
+    <span>Gestion de Stock</span>
+    <span class="spacer"></span>
+    <a mat-button routerLink="/produits">Produits</a>
+    <a mat-button routerLink="/categories">Catégories</a>
+    <a mat-button routerLink="/etageres">Étagères</a>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+
+  <script src="runtime.js" defer></script>
+  <script src="polyfills.js" defer></script>
+  <script src="styles.js" defer></script>
+  <script src="vendor.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>

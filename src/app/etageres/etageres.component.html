@@ -1,0 +1,43 @@
+<div>
+  <h2>Liste des Étagères</h2>
+  <table>
+    <tr>
+      <th>Numero Etagere</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let etagere of etageres">
+      <td>{{ etagere.numeroEtagere }}</td>
+      <td>
+        <button (click)="editEtagere(etagere)">Modifier</button>
+        <button (click)="deleteEtagere(etagere.id)">Supprimer</button>
+      </td>
+    </tr>
+    <tr>
+      <button class="add" (click)="toggleAddFields()">Ajouter Une Etagere</button>
+    </tr>
+  </table>
+
+  <div *ngIf="selectedEtagere.id">
+    <h3>Modifier l'Étagère</h3>
+    <form (ngSubmit)="updateEtagere()">
+      <label for="numeroEtagere">Numero Etagere:</label>
+      <input type="text" id="numeroEtagere" [(ngModel)]="selectedEtagere.numeroEtagere" name="numeroEtagere" required>
+      <br>
+      <div class="error-message" *ngIf="!selectedEtagere.numeroEtagere">Touts les champs sont obiligatoire.</div>
+      <br>
+      <button [disabled]="!selectedEtagere.numeroEtagere">Enregistrer</button>
+    </form>
+  </div>
+
+  <div *ngIf="showAddFields">
+    <h3>Ajouter une Étagère</h3>
+    <form (ngSubmit)="addNewEtagere()">
+      <label for="numeroEtagere">Numero Etagere:</label>
+      <input type="text" id="numeroEtagere" [(ngModel)]="selectedEtagere.numeroEtagere" name="numeroEtagere" required>
+      <br>
+      <div class="error-message" *ngIf="!selectedEtagere.numeroEtagere">Touts les champs sont obiligatoire.</div>
+      <br>
+      <button [disabled]="!selectedEtagere.numeroEtagere">Ajouter</button>
+    </form>
+  </div>
+</div>

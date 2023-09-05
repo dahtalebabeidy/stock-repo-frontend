@@ -1,0 +1,89 @@
+<div>
+  <h2>Liste des Produits</h2>
+  <table>
+    <tr>
+      <th>Code</th>
+      <th>Libellé</th>
+      <th>Prix Unitaire</th>
+      <th>Étagère</th>
+      <th>Catégorie</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let produit of produits">
+      <td>{{ produit.code }}</td>
+      <td>{{ produit.libelle }}</td>
+      <td>{{ produit.prixUnitaire }}</td>
+      <td>{{ produit.etagere.numeroEtagere }}</td>
+      <td>{{ produit.categorie.libelle }}</td>
+      <td>
+        <button (click)="editProduit(produit)">Modifier</button>
+        <button (click)="deleteProduit(produit.id)">Supprimer</button>
+      </td>
+    </tr>
+    <tr>
+      <button class="add" (click)="toggleAddFields()">Ajouter Un Produit</button>
+    </tr>
+  </table>
+
+  <div *ngIf="selectedProduit.id">
+    <h3>Modifier le Produit</h3>
+    <form (ngSubmit)="updateProduit()">
+      <label for="newCode">Code:</label>
+      <input type="text" id="newCode" [(ngModel)]="selectedProduit.code" name="newCode" required>
+      <br>
+      <label for="newLibelle">Libellé:</label>
+      <input type="text" id="newLibelle" [(ngModel)]="selectedProduit.libelle" name="newLibelle" required>
+      <br>
+      <label for="newPrixUnitaire">Prix Unitaire:</label>
+      <input type="number" id="newPrixUnitaire" [(ngModel)]="selectedProduit.prixUnitaire" name="newPrixUnitaire" required>
+      <br>
+      <label for="newEtagereSelect">Étagère:</label>
+      <select id="newEtagereSelect" [(ngModel)]="selectedProduit.etagere" name="newEtagereSelect" required>
+        <option value="" disabled selected>Sélectionnez une étagère</option>
+        <option hidden [ngValue]="selectedProduit.etagere">{{ selectedProduit.etagere.numeroEtagere }}</option>
+        <option selected *ngFor="let etagere of etageres" [ngValue]="etagere">{{ etagere.numeroEtagere }}</option>
+      </select>
+      <br>
+      <label for="newCategorieSelect">Catégorie:</label>
+      <select id="newCategorieSelect" [(ngModel)]="selectedProduit.categorie" name="newCategorieSelect" required>
+        <option value="" disabled selected>Sélectionnez une categorie</option>
+        <option hidden [ngValue]="selectedProduit.categorie">{{ selectedProduit.categorie.libelle }}</option>
+        <option selected *ngFor="let categorie of categories" [ngValue]="categorie">{{ categorie.libelle }}</option>
+      </select>
+      <br>
+      <div class="error-message" *ngIf="!selectedProduit.etagere || !selectedProduit.categorie || !selectedProduit.code || !selectedProduit.libelle || !selectedProduit.prixUnitaire">Touts les champs sont obiligatoire.</div>
+      <br>
+      <button [disabled]="!selectedProduit.etagere || !selectedProduit.categorie || !selectedProduit.code || !selectedProduit.libelle || !selectedProduit.prixUnitaire">Enregistrer</button>
+    </form>
+  </div>
+
+  <div *ngIf="showAddFields">
+    <h3>Ajouter un Produit</h3>
+    <form (ngSubmit)="addNewProduit()">
+      <label for="newCode">Code:</label>
+      <input type="text" id="newCode" [(ngModel)]="selectedProduit.code" name="newCode" required>
+      <br>
+      <label for="newLibelle">Libellé:</label>
+      <input type="text" id="newLibelle" [(ngModel)]="selectedProduit.libelle" name="newLibelle" required>
+      <br>
+      <label for="newPrixUnitaire">Prix Unitaire:</label>
+      <input type="number" id="newPrixUnitaire" [(ngModel)]="selectedProduit.prixUnitaire" name="newPrixUnitaire" required>
+      <br>
+      <label for="newEtagereSelect">Étagère:</label>
+      <select id="newEtagereSelect" [(ngModel)]="selectedProduit.etagere" name="newEtagereSelect" required>
+        <option value="" disabled selected>Sélectionnez une étagère</option>
+        <option *ngFor="let etagere of etageres" [ngValue]="etagere">{{ etagere.numeroEtagere }}</option>
+      </select>
+      <br>
+      <label for="newCategorieSelect">Catégorie:</label>
+      <select id="newCategorieSelect" [(ngModel)]="selectedProduit.categorie" name="newCategorieSelect" required>
+        <option value="" disabled selected>Sélectionnez une categorie</option>
+        <option *ngFor="let categorie of categories" [ngValue]="categorie">{{ categorie.libelle }}</option>
+      </select>
+      <br>
+      <div class="error-message" *ngIf="!selectedProduit.etagere || !selectedProduit.categorie || !selectedProduit.code || !selectedProduit.libelle || !selectedProduit.prixUnitaire">Touts les champs sont obiligatoire.</div>
+      <br>
+      <button [disabled]="!selectedProduit.etagere || !selectedProduit.categorie || !selectedProduit.code || !selectedProduit.libelle || !selectedProduit.prixUnitaire">Ajouter</button>
+    </form>
+  </div>
+</div>
